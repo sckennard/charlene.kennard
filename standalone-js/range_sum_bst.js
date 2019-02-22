@@ -53,18 +53,33 @@ let SumBST=function(node,sum,L,R){
 var rangeSumBST = function(root, L, R) {
     let sum = 0;
     
+    // function getSum(array){
+    //     if(!array.length){
+    //         return;
+    //     }
+
+    //     let current = array.shift(); 
+    //     if(current <= R && current >= L){
+    //         sum +=current;
+    //     }
+        
+    //     getSum(array);
+    // }
+
     function getSum(array){
-        if(!array.length){
+        if(array === null){
             return;
         }
 
-        let current = array.shift(); 
+        let current = array.val; 
         if(current <= R && current >= L){
             sum +=current;
         }
         
-        getSum(array);
+        getSum(array.left);
+        getSum(array.right);
     }
+
 
     getSum(root);
 
