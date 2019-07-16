@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dynamic Box Padding</title>
+</head>
+    <body>
+        <div class="breakout-image nested-card bigTopMarg bigBotMarg">
+            <div class="card-box card-box--large card-box--large-imgr">
+                <div class="card-box-content">
+                    <h2 class="card-box-title">One-line title (h2)</h2>
+                    <p>Four-line blurb. Arcu tincidunt aliquam dignissim placerat non montes dictumst scelerisque dapibus habitasse a vestibulum parturient eros a adipiscing. Vulputate congue odio vestibulum odio purus quam tempus.</p>
+                    <p><strong><a href="#">One-line link&nbsp;&raquo;</a></strong></p>
+                    <a href="#">
+                      <img src="https://dummyimage.com/600/ccc/969696.png" alt="[insert description]" title="[insert description]" class="card-box-imgr">
+                    </a>
+                  </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        var cardBoxes = (function(){
+        var getPadding = function(){
+            var card_boxes = document.querySelectorAll('.card-box'),
+                imgHeight,
+                container,
+                containerPadding;
+        
+        
+            for(var n = 0 ; n < card_boxes.length; n++){
+                imgHeight = card_boxes[n].querySelector('img').clientHeight,
+                container =  card_boxes[n].querySelector('.card-box-content'),
+                containerPadding = parseInt(window.getComputedStyle(container).getPropertyValue('padding-top').replace('px',''));
+                console.log(imgHeight,container,containerPadding);
+                if (window.matchMedia("(min-width: 1000px)").matches) {
+                container.style.paddingRight = (imgHeight + containerPadding)+'px';
+                } else {
+                container.style.paddingRight = (containerPadding)+'px';
+                }
+            }
+        }
+        
+        if(document.querySelector('.card-box') !== null){
+            window.addEventListener('resize', function(e) {
+            getPadding();
+            });
+            
+            getPadding();
+        }
+        
+        })();
+    </script>
+</html>
