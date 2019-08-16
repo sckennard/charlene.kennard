@@ -23,26 +23,26 @@
     <script>
         var cardBoxes = (function(){
         var getPadding = function(){
-            var card_boxes = document.querySelectorAll('.card-box'),
-                imgHeight,
+            var card_boxes = document.querySelectorAll('.card-box-content'),
+                imgHeight,imgWidth,
                 container,
                 containerPadding;
         
-        
-            for(var n = 0 ; n < card_boxes.length; n++){
-                imgHeight = card_boxes[n].querySelector('img').clientHeight,
-                container =  card_boxes[n].querySelector('.card-box-content'),
+
+            for(var n = 0 ; n < card_boxes.length; n++){ if(card_boxes[n].getElementsByTagName('img').length !== 0){  
+                imgHeight = card_boxes[n].getElementsByTagName('img')[0].clientHeight,imgWidth = card_boxes[n].getElementsByTagName('img')[0].clientWidth,
+                container =  card_boxes[n],
                 containerPadding = parseInt(window.getComputedStyle(container).getPropertyValue('padding-top').replace('px',''));
-                console.log(imgHeight,container,containerPadding);
+
                 if (window.matchMedia("(min-width: 1000px)").matches) {
-                container.style.paddingRight = (imgHeight + containerPadding)+'px';
+                    container.style.paddingRight = ((imgHeight >= imgWidth ? imgHeight : imgWidth) + containerPadding)+'px';
                 } else {
-                container.style.paddingRight = (containerPadding)+'px';
-                }
+                    container.style.paddingRight = (containerPadding)+'px';
+                }}
             }
         }
         
-        if(document.querySelector('.card-box') !== null){
+        if(document.querySelector('.card-box-content') !== null){
             window.addEventListener('resize', function(e) {
             getPadding();
             });
